@@ -1,6 +1,7 @@
 <template>
     <div id="app">
-        <h1>{{title}}</h1>
+        <headers></headers>
+
         <input type="text" name="" placeholder="准备干点儿什么？" v-model="newItem" @keyup.enter="addNew">
         <ul>
             <li v-for="i in items" v-bind:class="{finished:i.isFinished}" @click="toggleFinished(i)">
@@ -11,16 +12,9 @@
 </template>
 
 <script>
-    var STORAGE_KEY = 'Todoist'
-    var stores = {
-        save:function(items){
-            localStorage.setItem(STORAGE_KEY,JSON.stringify(items))
-        },
-        get:function(){
-            var Items = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
-            return Items
-        }
-    }
+import stores from './components/stores'
+import Headers from './components/Header'
+
 export default {
             data() {
               return {
@@ -51,11 +45,18 @@ export default {
                     },
                     deep:true
                 }
+            },
+            components:{
+                Headers
             }
 }
 </script>
 
 <style>
+        body{
+            margin:0;
+            padding:0;
+        }
         .finished{
             text-decoration: line-through;
             background: #eee;
