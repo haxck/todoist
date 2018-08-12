@@ -1,15 +1,20 @@
 <template>
-    <div id="app"> 
-        <header>
-            <h1><i>Todo</i></h1>
-        </header>
-        <ul>
-            <li v-for="i in items">
-                {{i}}
+  <div id="app"> 
+    <header>
+        <h1><i>Todo</i></h1>
+    </header>
+
+    <ul>
+          <transition-group name="fade" tag="ul">
+            <li v-for="item in items" v-bind:key="item" class="list-item">
+              {{ item }}
             </li>
-        </ul>
-        <input class="todobar" type="text" placeholder="又是美好地一天" v-model="item" v-on:keyup.enter="addNew" > 
-    </div>
+          </transition-group>
+    </ul>
+
+    <input class="todobar" type="text" placeholder="又是美好地一天" v-model="item" v-on:keyup.enter="addNew" >
+
+  </div>
 </template>
 
 <script>
@@ -17,14 +22,18 @@ export default {
   data() {
     return {
       items: [],
-      item: ""
+      item: "",
+      nolist: true
     };
   },
   methods: {
     //添加一条新任务
     addNew() {
-      this.items.push(this.item);
-      this.item = "";
+      if (this.item.trim() !== "") {
+        this.items.push(this.item);
+        this.item = "";
+        this.nolist = false;
+      }
     }
   }
 };
@@ -34,6 +43,7 @@ export default {
 body {
   margin: 0 0 60px 0;
   padding: 0;
+  background-color: #eee;
 }
 header {
   background: yellow;
@@ -45,15 +55,15 @@ header h1 {
   text-align: center;
 }
 ul {
-  margin: 0;
+  margin: 10px 0 0 0;
   padding: 0;
   list-style: none;
 }
 li {
-  margin-top: 2px;
   line-height: 36px;
   padding: 10px 10px;
-  background: #ff4949;
+  background: #fff;
+  border-bottom: 1px solid #eee;
   cursor: pointer;
 }
 .todobar {
@@ -65,5 +75,13 @@ li {
   outline: medium;
   position: fixed;
   bottom: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
