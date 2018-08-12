@@ -4,6 +4,10 @@
         <h1><i>Todo</i></h1>
     </header>
 
+    <div v-show="notask" style="text-align: center;">
+      <div id="done_today" class="heading">今天的任务完成了！Awsome</div>
+    </div>
+
     <ul>
           <transition-group name="fade" tag="ul">
             <li v-for="item in items" v-bind:key="item" class="list-item">
@@ -13,7 +17,7 @@
     </ul>
 
     <input class="todobar" type="text" placeholder="又是美好地一天" v-model="item" v-on:keyup.enter="addNew" >
-
+    
   </div>
 </template>
 
@@ -23,7 +27,7 @@ export default {
     return {
       items: [],
       item: "",
-      nolist: true
+      notask: true
     };
   },
   methods: {
@@ -32,7 +36,7 @@ export default {
       if (this.item.trim() !== "") {
         this.items.push(this.item);
         this.item = "";
-        this.nolist = false;
+        this.notask = false;
       }
     }
   }
