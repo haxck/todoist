@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import stores from "./stores";
+
 export default {
   data() {
     return {
@@ -29,6 +31,9 @@ export default {
       item: "",
       notask: true
     };
+  },
+  mounted() {
+    this.items = stores.get();
   },
   methods: {
     //添加一条新任务
@@ -38,6 +43,14 @@ export default {
         this.item = "";
         this.notask = false;
       }
+    }
+  },
+  watch: {
+    items: {
+      handler(items) {
+        stores.save(items);
+      },
+      deep: true
     }
   }
 };
