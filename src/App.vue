@@ -11,7 +11,7 @@
     <ul>
           <transition-group name="fade" tag="ul">
             <li v-for="item in items" v-bind:key="item" class="list-item">
-              {{ item }}
+              {{ item.title }}
             </li>
           </transition-group>
     </ul>
@@ -39,8 +39,12 @@ export default {
   methods: {
     //添加一条新任务
     addNew() {
+      let item = {
+        order: this.items.length,
+        title: this.item
+      };
       if (this.item.trim() !== "") {
-        this.items.push(this.item);
+        this.items.push(item);
         this.item = "";
       }
     }
