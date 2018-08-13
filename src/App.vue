@@ -34,6 +34,7 @@ export default {
   },
   mounted() {
     this.items = stores.get();
+    this.notask = this.items.length <= 0 ? true : false;
   },
   methods: {
     //添加一条新任务
@@ -41,7 +42,6 @@ export default {
       if (this.item.trim() !== "") {
         this.items.push(this.item);
         this.item = "";
-        this.notask = false;
       }
     }
   },
@@ -49,6 +49,7 @@ export default {
     items: {
       handler(items) {
         stores.save(items);
+        this.notask = this.items.length <= 0 ? true : false;
       },
       deep: true
     }
