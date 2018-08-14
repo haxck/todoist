@@ -10,7 +10,8 @@
 
     <ul>
           <transition-group name="fade" tag="ul">
-            <li v-for="item in items" v-bind:key="item" class="list-item">
+            <li v-for="item in items" v-bind:key="item" class="list-item" 	v-tap="tap"
+				v-pan="pan" v-panend="panend">
               {{ item.title }}
             </li>
           </transition-group>
@@ -47,6 +48,16 @@ export default {
         this.items.push(item);
         this.item = "";
       }
+    },
+    tap: function(s, e) {
+      console.log(s.target);
+    },
+    pan: function(e){
+      console.log(e)
+      e.target.style.left = e.deltaX + "px";
+    },
+    panend: function(e){
+      e.target.style.left = 0 + "px";
     }
   },
   watch: {
@@ -87,6 +98,8 @@ li {
   background: #fff;
   border-bottom: 1px solid #eee;
   cursor: pointer;
+  position: relative;
+  left: 0;
 }
 .todobar {
   background: #eee;
