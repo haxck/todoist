@@ -3,6 +3,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "css-loader": "^1.0.0",
+    "hammerjs": "^2.0.8",
     "koa": "^2.5.2",
     "koa-static": "^5.0.0",
     "url-loader": "^1.0.1",
