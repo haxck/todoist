@@ -10,9 +10,14 @@
 
     <ul>
           <transition-group name="fade" tag="ul">
-            <li v-for="item in items" v-bind:key="item" class="list-item" 	v-tap="tap"
-				v-pan="pan" v-panend="panend">
-              {{ item.title }}
+            <li v-for="item in items" v-bind:key="item" class="list-item">
+              <div class="item" >
+                <div class="inner" v-pan="pan" v-panend="panend">
+                  <span>{{ item.title }}</span>
+                </div>
+                <img src="./assets/check.png" alt="" class="check">
+                <img src="./assets/cross.png" alt="" class="cross">
+              </div>
             </li>
           </transition-group>
     </ul>
@@ -49,15 +54,31 @@ export default {
         this.item = "";
       }
     },
-    tap: function(s, e) {
-      console.log(s.target);
-    },
-    pan: function(e){
-      console.log(e)
+    pan: function(e) {
+      let check = document.querySelector(".check");
+      let cross = document.querySelector(".cross");
+      check.style.opacity = Math.abs(e.deltaX / 62);
+      cross.style.opacity = Math.abs(e.deltaX / 62);
       e.target.style.left = e.deltaX + "px";
+      if (e.deltaX > 61) {
+        check.style.transform =
+          "translate3d(" + (e.deltaX - 62) + "px,0px,0px)";
+        e.target.style.background = "green";
+      } else if (e.deltaX < -61) {
+        cross.style.transform =
+          "translate3d(" + (e.deltaX + 62) + "px,0px,0px)";
+        e.target.style.background = "red";
+      }
     },
-    panend: function(e){
+    panend: function(e) {
+      let check = document.querySelector(".check");
+      let cross = document.querySelector(".cross");
       e.target.style.left = 0 + "px";
+      check.style.opacity = 0;
+      cross.style.opacity = 0;
+      check.style.transform = "translate3d(0px,0px,0px)";
+      cross.style.transform = "translate3d(0px,0px,0px)";
+      e.target.style.background = "black";
     }
   },
   watch: {
@@ -94,8 +115,7 @@ ul {
 }
 li {
   line-height: 36px;
-  padding: 10px 10px;
-  background: #fff;
+  padding: 0;
   border-bottom: 1px solid #eee;
   cursor: pointer;
   position: relative;
@@ -111,7 +131,40 @@ li {
   position: fixed;
   bottom: 0;
 }
-
+.item {
+  height: 62px;
+  background: black;
+}
+.inner {
+  display: block;
+  left: 0;
+  position: relative;
+  height: 62px;
+  background-color: black;
+  z-index: 1;
+  color: #fff;
+  font-weight: 600;
+}
+.inner span {
+  line-height: 62px;
+}
+.check {
+  width: 62px;
+  height: 62px;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  opacity: 0;
+}
+.cross {
+  width: 62px;
+  height: 62px;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  opacity: 0;
+}
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
