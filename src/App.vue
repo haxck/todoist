@@ -8,7 +8,7 @@
       <div id="done_today" class="heading">今天的任务完成了！Awsome</div>
     </div>
 
-    <ul>
+
           <transition-group name="fade" tag="ul">
             <li v-for="item in items" v-bind:key="item" class="list-item">
               <div class="item" >
@@ -20,7 +20,6 @@
               </div>
             </li>
           </transition-group>
-    </ul>
 
     <input class="todobar" type="text" placeholder="又是美好地一天" v-model="item" v-on:keyup.enter="addNew" >
     
@@ -55,8 +54,8 @@ export default {
       }
     },
     pan: function(e) {
-      let check = document.querySelector(".check");
-      let cross = document.querySelector(".cross");
+      let check = e.target.parentNode.querySelector(".check");
+      let cross = e.target.parentNode.querySelector(".cross");
       check.style.opacity = Math.abs(e.deltaX / 62);
       cross.style.opacity = Math.abs(e.deltaX / 62);
       e.target.style.left = e.deltaX + "px";
@@ -71,8 +70,8 @@ export default {
       }
     },
     panend: function(e) {
-      let check = document.querySelector(".check");
-      let cross = document.querySelector(".cross");
+      let check = e.target.parentNode.querySelector(".check");
+      let cross = e.target.parentNode.querySelector(".cross");
       e.target.style.left = 0 + "px";
       check.style.opacity = 0;
       cross.style.opacity = 0;
