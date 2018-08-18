@@ -10,7 +10,7 @@
 
 
           <transition-group name="fade" tag="ul">
-            <li v-for="item in items" v-bind:key="item" class="list-item">
+            <li v-for="item in items" v-bind:key="item.order" class="list-item">
               <div class="item" >
                 <div class="inner" v-pan="pan" v-panend="panend">
                   <span>{{ item.title }}</span>
@@ -21,7 +21,7 @@
             </li>
           </transition-group>
 
-    <input class="todobar" type="text" placeholder="又是美好地一天" v-model="item" v-on:keyup.enter="addNew" >
+    <input class="todobar" type="text" placeholder="又是美好的一天" v-model="item" v-on:keyup.enter="addNew" >
     
   </div>
 </template>
