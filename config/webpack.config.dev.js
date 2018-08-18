@@ -1,3 +1,6 @@
+'use strict'
+
+const webpack = require('webpack')
 const path = require("path");
 const {
   VueLoaderPlugin
@@ -5,17 +8,13 @@ const {
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  mode: 'production',
-  entry: './src',
-  output: {
-    path: path.resolve(__dirname, "../dist"),
-    filename: "app.js"
-  },
+  mode: 'development',
+  entry: [
+    './src'
+  ],
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
-      '@': path.resolve('src'),
+      vue: 'vue/dist/vue.js'
     }
   },
   module: {
@@ -41,12 +40,13 @@ module.exports = {
         options: {
           name: '[name].[ext]',
           outputPath: 'assets/',
-          publicPath: 'assets/'
+          publicPath: './dist/assets/'
         }
       }
     ]
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
@@ -54,4 +54,4 @@ module.exports = {
       inject: true
     })
   ]
-};
+}
