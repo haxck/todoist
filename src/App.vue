@@ -8,18 +8,17 @@
       <div id="done_today" class="heading">今天的任务完成了！Awsome</div>
     </div>
 
-
-          <transition-group name="fade" tag="ul">
-            <li v-for="item in items" v-bind:key="item.order" class="list-item">
-              <div class="item" >
-                <div class="inner" v-pan="pan" v-panend="panend">
-                  <span>{{ item.title }}</span>
-                </div>
-                <img src="./assets/check.png" alt="" class="check">
-                <img src="./assets/cross.png" alt="" class="cross">
-              </div>
-            </li>
-          </transition-group>
+    <transition-group name="fade" tag="ul">
+      <li v-for="item in items" v-bind:key="item.order" class="list-item">
+        <div class="item" >
+          <div class="inner" v-pan="pan" v-panend="panend">
+            <span>{{ item.title }}</span>
+          </div>
+          <img src="./assets/check.png" alt="" class="check">
+          <img src="./assets/cross.png" alt="" class="cross">
+        </div>
+      </li>
+    </transition-group>
 
     <input class="todobar" type="text" placeholder="又是美好的一天" v-model="item" v-on:keyup.enter="addNew" >
     
@@ -54,30 +53,38 @@ export default {
       }
     },
     pan: function(e) {
-      let check = e.target.parentNode.querySelector(".check");
-      let cross = e.target.parentNode.querySelector(".cross");
+      let target = e.target;
+      if (e.target.parentNode.className !== "item") {
+        target = target.parentNode;
+      }
+      let check = target.parentNode.querySelector(".check");
+      let cross = target.parentNode.querySelector(".cross");
       check.style.opacity = Math.abs(e.deltaX / 62);
       cross.style.opacity = Math.abs(e.deltaX / 62);
-      e.target.style.left = e.deltaX + "px";
+      target.style.left = e.deltaX + "px";
       if (e.deltaX > 61) {
         check.style.transform =
           "translate3d(" + (e.deltaX - 62) + "px,0px,0px)";
-        e.target.style.background = "green";
+        target.style.background = "green";
       } else if (e.deltaX < -61) {
         cross.style.transform =
           "translate3d(" + (e.deltaX + 62) + "px,0px,0px)";
-        e.target.style.background = "red";
+        target.style.background = "red";
       }
     },
     panend: function(e) {
-      let check = e.target.parentNode.querySelector(".check");
-      let cross = e.target.parentNode.querySelector(".cross");
-      e.target.style.left = 0 + "px";
+      let target = e.target;
+      if (e.target.parentNode.className !== "item") {
+        target = target.parentNode;
+      }
+      let check = target.parentNode.querySelector(".check");
+      let cross = target.parentNode.querySelector(".cross");
+      target.style.left = 0 + "px";
       check.style.opacity = 0;
       cross.style.opacity = 0;
       check.style.transform = "translate3d(0px,0px,0px)";
       cross.style.transform = "translate3d(0px,0px,0px)";
-      e.target.style.background = "black";
+      target.style.background = "black";
     }
   },
   watch: {
