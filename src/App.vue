@@ -9,7 +9,7 @@
     </div>
 
     <transition-group name="fade" tag="ul">
-      <li class="list-item" v-for="(item,index) in items" v-bind:key="item.order" v-if="item.done !== true">
+      <li v-for="(item,index) in items" v-bind:key="item.order" v-if="item.done !== true">
         <div class="item" >
           <div class="inner" v-pan="pan" v-panend="panend" :id="index">
             <span>{{ item.title }}</span>
@@ -125,6 +125,7 @@ ul {
   margin: 10px 0 0 0;
   padding: 0;
   list-style: none;
+  overflow: hidden;
 }
 li {
   line-height: 36px;
@@ -157,6 +158,8 @@ li {
   z-index: 1;
   color: #fff;
   font-weight: 600;
+  padding-left: .8em;
+  padding-right: .8em;
 }
 .inner span {
   line-height: 62px;
