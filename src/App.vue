@@ -9,9 +9,9 @@
     </div>
 
     <transition-group name="fade" tag="ul">
-      <li v-for="item in items" v-bind:key="item.order" class="list-item">
+      <li class="list-item" v-for="(item,index) in items" v-bind:key="item.order" v-if="item.done !== true">
         <div class="item" >
-          <div class="inner" v-pan="pan" v-panend="panend">
+          <div class="inner" v-pan="pan" v-panend="panend" :id="index">
             <span>{{ item.title }}</span>
           </div>
           <img src="./assets/check.png" alt="" class="check">
@@ -45,7 +45,8 @@ export default {
     addNew() {
       let item = {
         order: this.items.length,
-        title: this.item
+        title: this.item,
+        done: false
       };
       if (this.item.trim() !== "") {
         this.items.push(item);
@@ -79,6 +80,12 @@ export default {
       }
       let check = target.parentNode.querySelector(".check");
       let cross = target.parentNode.querySelector(".cross");
+      let left = parseInt(target.style.left);
+      if (left >= 62) {
+        this.items[target.id].done = true;
+      } else if (left <= -62) {
+        this.items.splice(target.id, 1);
+      }
       target.style.left = 0 + "px";
       check.style.opacity = 0;
       cross.style.opacity = 0;
