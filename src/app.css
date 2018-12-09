@@ -1,0 +1,72 @@
+body {
+  margin: 0 0 60px 0;
+  padding: 0;
+  background-color: #eee;
+}
+header {
+  background: yellow;
+  color: #3a3a3a;
+  padding: 0.3rem;
+}
+header h1 {
+  margin: 0;
+  text-align: center;
+}
+ul {
+  margin: 10px 0 0 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+}
+li {
+  line-height: 36px;
+  padding: 0;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  position: relative;
+  left: 0;
+}
+
+.item {
+  height: 62px;
+  background: black;
+}
+.inner {
+  display: block;
+  left: 0;
+  position: relative;
+  height: 62px;
+  background-color: black;
+  z-index: 1;
+  color: #fff;
+  font-weight: 600;
+  padding-left: .8em;
+  padding-right: .8em;
+}
+.inner span {
+  line-height: 62px;
+}
+.check {
+  width: 62px;
+  height: 62px;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  opacity: 0;
+}
+.cross {
+  width: 62px;
+  height: 62px;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
